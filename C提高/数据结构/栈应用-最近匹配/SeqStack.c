@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-10-27 20:56:03
  * @LastEditors: Cement
- * @LastEditTime: 2019-10-27 22:02:13
+ * @LastEditTime: 2019-10-28 20:21:50
  * @Description: 栈的函数实现
  */
 
@@ -45,7 +45,7 @@ void Push_SeqStack(SeqStack stack, void *data)
     //栈满
     if (myStack->size == MAX)
     {
-        printf("Failure! The stack is full!\n");
+        //printf("Failure! The stack is full!\n");
         return;
     }
     //入栈
@@ -63,7 +63,7 @@ void Pop_SeqStack(SeqStack stack)
     struct SStack *myStack = (struct SStack *)stack;
     if (myStack->size == 0)
     {
-        printf("Failure! The stack is empty!\n");
+        //printf("Failure! The stack is empty!\n");
         return;
     }
     //出栈
@@ -81,7 +81,7 @@ void *Top_SeqStack(SeqStack stack)
     struct SStack *myStack = (struct SStack *)stack;
     if (myStack->size == 0)
     {
-        printf("Failure! The stack is empty!\n");
+        //printf("Failure! The stack is empty!\n");
         return NULL;
     }
     //返回栈顶元素
