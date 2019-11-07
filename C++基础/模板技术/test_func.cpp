@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-07 07:42:32
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-07 08:17:31
+ * @LastEditTime: 2019-11-07 08:53:41
  * @Description: 函数模板敲一敲
  */
 #include <iostream>
@@ -14,6 +14,7 @@ using namespace std;
 template <class T>
 T function(T a, T b)
 {
+   // cout<<typeid(T).name()<<endl;
     return a + b;
 }
 
@@ -28,8 +29,7 @@ void test1()
 {
     int a = 10, b = 100;
     int ret = function(a, b); //自动类型推导
-    cout << ret << endl
-         << endl;
+    cout << ret << endl;
     int result = function<>(a, a); //强制使用模板函数
     cout << result << endl;
 }
@@ -108,5 +108,6 @@ void test2()
 
 int main()
 {
-    test2();
+    test1();
+    //test2();
 }
