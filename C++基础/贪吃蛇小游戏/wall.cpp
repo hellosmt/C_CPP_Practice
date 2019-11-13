@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-12 18:01:48
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 20:39:20
+ * @LastEditTime: 2019-11-13 21:56:13
  * @Description: 
  */
 #include "wall.h"
@@ -42,19 +42,19 @@ void Wall::drawWall()
         }
         if (i == 6)
         {
-            cout << "UP:w";
+            cout << "w:UP";
         }
         if (i == 7)
         {
-            cout << "DOWN:s";
+            cout << "s:DOWN";
         }
         if (i == 8)
         {
-            cout << "LEFT:a";
+            cout << "a:LEFT";
         }
         if (i == 9)
         {
-            cout << "RIGHT:d";
+            cout << "d:RIGHT";
         }
         cout << endl;
     }
