@@ -7,21 +7,19 @@
  */
 #pragma once
 #include <ctime>
-#include<string>
-#include"wall.h"
+#include <string>
+#include "wall.h"
 
 class Food
 {
 private:
     int m_x;
     int m_y;
-    Wall& m_wall;//也需要维护一个wall的对象引用，因为在设置食物时需要调用它的setWall方法
+    Wall &m_wall; //也需要维护一个wall的对象引用，因为在设置食物时需要调用它的setWall方法
 public:
     // 随机设置食物
     void setFood();
 
     //构造函数
-    Food(Wall& tempWall);
-
+    Food(Wall &tempWall);
 };
-

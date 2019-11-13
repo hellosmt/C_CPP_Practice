@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-12 18:01:48
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-12 18:44:45
+ * @LastEditTime: 2019-11-13 20:39:20
  * @Description: 
  */
 #include "wall.h"
@@ -20,12 +20,11 @@ void Wall::initWall()
             }
             else
             {
-                this->m_wall[i][j]=' ';
+                this->m_wall[i][j] = ' ';
             }
         }
     }
 }
-
 
 //画墙
 void Wall::drawWall()
@@ -34,16 +33,31 @@ void Wall::drawWall()
     {
         for (int j = 0; j < COL; j++)
         {
-            cout<<this->m_wall[i][j]<<" ";
+            cout << this->m_wall[i][j] << " ";
         }
 
-        if (i==5)
+        if (i == 5)
         {
-            cout<<"created by Cement";
+            cout << "created by Cement";
         }
-        cout<<endl;
+        if (i == 6)
+        {
+            cout << "UP:w";
+        }
+        if (i == 7)
+        {
+            cout << "DOWN:s";
+        }
+        if (i == 8)
+        {
+            cout << "LEFT:a";
+        }
+        if (i == 9)
+        {
+            cout << "RIGHT:d";
+        }
+        cout << endl;
     }
-    
 }
 
 //设置某点
@@ -52,7 +66,7 @@ void Wall::setWall(int x, int y, char c)
     this->m_wall[x][y] = c;
 }
 
-//获取某点 
+//获取某点
 char Wall::getWall(int x, int y)
 {
     return this->m_wall[x][y];
