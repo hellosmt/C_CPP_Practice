@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-12 17:59:57
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 21:49:43
+ * @LastEditTime: 2019-11-13 23:14:00
  * @Description: 
  */
 #include "wall.h"
@@ -11,10 +11,26 @@
 #include <conio.h>
 #include <windows.h>
 
+
+
+//定位光标，不用清屏
+//坐标系是反的
+void gotoxy2(HANDLE hOut, int x, int y)
+{
+	COORD pos;
+	pos.X = x;             //横坐标
+	pos.Y = y;            //纵坐标
+	SetConsoleCursorPosition(hOut, pos);
+}
+HANDLE hOut2 = GetStdHandle(STD_OUTPUT_HANDLE);//定义显示器句柄变量
+
+
 void test()
 {
     Wall w;
     w.initWall();
+    w.drawWall();
+
 
     Food f(w);
     f.setFood();
@@ -23,7 +39,7 @@ void test()
 
     s.initSnake();
 
-    w.drawWall();
+    gotoxy2(hOut2, 0, w.ROW);
     cout<<"Score: "<<s.getScore()<<endl;
 
     //记录一个是否死亡的状态变量
@@ -65,14 +81,16 @@ void test()
                 {
                     //移动成功代码
                     //清屏
-                    system("cls");
-                    w.drawWall();
+                    //system("cls");
+                    //w.drawWall();
+                    gotoxy2(hOut2, 0, w.ROW);
                     cout<<"Score: "<<s.getScore()<<endl;
                     Sleep(s.getSleepTime());
                 }
                 else
                 {
                     isDead = true;
+                    gotoxy2(hOut2, 0, w.ROW);
                     cout<<"Score: "<<s.getScore()<<endl;
                     cout << "GAME OVER!" << endl;
                     break;

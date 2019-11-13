@@ -2,10 +2,22 @@
  * @Author: Cement
  * @Date: 2019-11-13 08:48:22
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 21:54:26
+ * @LastEditTime: 2019-11-13 23:16:31
  * @Description: 
  */
 #include "snake.h"
+#include<windows.h>
+
+//定位光标，不用清屏
+//坐标系是反的
+void gotoxy(HANDLE hOut, int x, int y)
+{
+	COORD pos;
+	pos.X = x;             //横坐标
+	pos.Y = y;            //纵坐标
+	SetConsoleCursorPosition(hOut, pos);
+}
+HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);//定义显示器句柄变量
 
 //构造函数
 Snake::Snake(Wall &tempWall, Food &tempFood) : m_wall(tempWall), m_food(tempFood)
@@ -41,10 +53,14 @@ void Snake::addPoint(int x, int y)
     {
         //原来的头显示为身子=
         this->m_wall.setWall(this->m_head->x, this->m_head->y, '=');
+        gotoxy(hOut,this->m_head->y*2, this->m_head->x);
+        cout<<'=';
     }
 
     //将新节点显示为头@，将头结点指向新节点
     this->m_wall.setWall(x, y, '@');
+    gotoxy(hOut, y*2,x);
+    cout<<'@';
     pNew->pNext = this->m_head;
     this->m_head = pNew;
 }
@@ -80,6 +96,8 @@ void Snake::deleteTailPoint()
 
     //将尾节点所在位置设置成' '
     this->m_wall.setWall(pCurrent->x, pCurrent->y, ' ');
+    gotoxy(hOut,  pCurrent->y*2,pCurrent->x);
+    cout<<' ';
 
     delete pCurrent;
     pCurrent = NULL;
@@ -156,6 +174,8 @@ bool Snake::move(char key)
         if (this->isLoop)
         {
             this->m_wall.setWall(x, y, '@');
+            gotoxy(hOut, y*2, x);
+            cout<<'@';  
         }
     }
     return true;
@@ -183,7 +203,7 @@ int Snake::getSleepTime()
     {
         sleepTime=200;
     }
-    if (this->getSize()>=10 && this->getSize()<=15)
+    if (this->getSize()>=10 )
     {
         sleepTime=100;
     }
