@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-13 08:48:22
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 20:44:26
+ * @LastEditTime: 2019-11-13 21:54:26
  * @Description: 
  */
 #include "snake.h"
@@ -159,4 +159,40 @@ bool Snake::move(char key)
         }
     }
     return true;
+}
+
+//获取身段长度
+int Snake::getSize()
+{
+    int size = 0;
+    Point* pCurrent = this->m_head;
+    while (pCurrent!=NULL)
+    {
+        ++size;
+        pCurrent= pCurrent->pNext;
+    }
+
+    return size;
+}
+
+ //获取SleepTime
+int Snake::getSleepTime()
+{
+    int sleepTime = 300;
+    if (this->getSize()>5 && this->getSize()<=10)
+    {
+        sleepTime=200;
+    }
+    if (this->getSize()>=10 && this->getSize()<=15)
+    {
+        sleepTime=100;
+    }
+    return sleepTime;
+}
+
+//获取分数
+int Snake::getScore()
+{
+    int score = (this->getSize()-3)*100;//初始身段长为2，所以减去2
+    return score;
 }

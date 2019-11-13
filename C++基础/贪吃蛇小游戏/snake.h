@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-13 08:48:27
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 20:39:28
+ * @LastEditTime: 2019-11-13 21:46:14
  * @Description: 
  */
 #pragma once
@@ -55,4 +55,15 @@ public:
 
     //销毁snake
     void destorySnake();
+
+    //根据snake身段的长度进行难度设定，越长速度越快 
+    //获取身段长度
+    int getSize();
+
+    //获取SleepTime
+    int getSleepTime();
+
+    //获取分数
+    int getScore();
+    
 };

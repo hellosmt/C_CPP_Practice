@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-12 17:59:57
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 20:51:16
+ * @LastEditTime: 2019-11-13 21:49:43
  * @Description: 
  */
 #include "wall.h"
@@ -24,6 +24,7 @@ void test()
     s.initSnake();
 
     w.drawWall();
+    cout<<"Score: "<<s.getScore()<<endl;
 
     //记录一个是否死亡的状态变量
     bool isDead = false;
@@ -66,11 +67,13 @@ void test()
                     //清屏
                     system("cls");
                     w.drawWall();
-                    Sleep(300);
+                    cout<<"Score: "<<s.getScore()<<endl;
+                    Sleep(s.getSleepTime());
                 }
                 else
                 {
                     isDead = true;
+                    cout<<"Score: "<<s.getScore()<<endl;
                     cout << "GAME OVER!" << endl;
                     break;
                 }
