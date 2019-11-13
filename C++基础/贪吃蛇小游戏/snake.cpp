@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-13 08:48:22
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 09:46:49
+ * @LastEditTime: 2019-11-13 10:45:18
  * @Description: 
  */
 #include"snake.h"
@@ -58,4 +58,29 @@ void Snake::destorySnake()
         delete pCurrent;
         pCurrent=this->m_head;
     }
+}
+
+//删除尾节点
+void Snake:: deleteTailPoint()
+{
+    //两个节点以上才做删除操作
+    if (this->m_head==NULL || this->m_head->pNext==NULL)
+    {
+        return ;
+    }
+    
+    Point* pCurrent = this->m_head->pNext;
+    Point* pPrev= this->m_head;
+    while (pCurrent->pNext!=NULL)  
+    {
+        pPrev = pCurrent;
+        pCurrent = pCurrent->pNext;
+    }
+
+    //将尾节点所在位置设置成' '
+    this->m_wall.setWall(pCurrent->x, pCurrent->y, ' ');
+    
+    delete pCurrent;
+    pCurrent = NULL;
+    pPrev->pNext=NULL;
 }

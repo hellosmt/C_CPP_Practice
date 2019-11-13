@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-13 08:48:27
  * @LastEditors: Cement
- * @LastEditTime: 2019-11-13 09:48:48
+ * @LastEditTime: 2019-11-13 10:36:11
  * @Description: 
  */
 #pragma once
@@ -34,6 +34,9 @@ public:
 
     //添加身子
     void addPoint(int x, int y);
+
+    //删除尾节点
+    void deleteTailPoint();
 
     //销毁snake
     void destorySnake();
