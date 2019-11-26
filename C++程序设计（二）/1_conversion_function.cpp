@@ -1,8 +1,8 @@
 /*
  * @Author: Cement
  * @Date: 2019-11-20 16:26:32
- * @LastEditors: Cement
- * @LastEditTime: 2019-11-21 17:55:58
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2019-11-26 14:23:29
  * @Description: P1-转换函数示例
  */
 
@@ -149,6 +149,57 @@ void variadic_templates_test()
 }
 } // namespace test04
 
+//member template 成员模板
+#include <iostream>
+
+namespace test05
+{
+class Base1
+{
+    
+};
+
+class Base2
+{
+    
+};
+
+class Derived1: public Base1
+{
+
+};
+
+class Derived2: public Base2
+{
+
+};
+
+template<typename T1, typename T2>
+struct pair
+{
+    T1 first;
+    T2 second;
+
+    pair( ):first(T1()), second(T2()){}
+    pair(const T1& a, const T2& b):first(a), second(b){}
+    
+};
+
+
+void member_template_test()
+{
+    Base1 a;
+    Base2 b;
+    Derived1 c;
+    Derived1 d;
+
+    pair<Base1, Base2>  p = 
+}
+
+} // namespace test05
+
+
+//
 int main(int argc, char **argv)
 {
     //测试编译器支持到c++多新的特性98、11还是14
