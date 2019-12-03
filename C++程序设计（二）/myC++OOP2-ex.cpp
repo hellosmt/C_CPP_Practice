@@ -1,9 +1,9 @@
 /*
  * @Author: Cement
  * @Date: 2019-11-20 16:26:32
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2019-11-26 14:23:29
- * @Description: P1-转换函数示例
+ * @LastEditors: Cement
+ * @LastEditTime: 2019-12-03 17:51:55
+ * @Description: 跟着侯捷老师敲的C++OOP2
  */
 
 using namespace std;
@@ -137,7 +137,7 @@ void print()
 template <typename T, typename... Types>
 void print(const T &arg1, const Types &... args)
 {
-    cout<<sizeof...(args)<<endl;//sizeof...(args)得到args里面参数的个数
+    cout << sizeof...(args) << endl; //sizeof...(args)得到args里面参数的个数
     cout << arg1 << endl;
     print(args...);
 }
@@ -145,7 +145,7 @@ void print(const T &arg1, const Types &... args)
 void variadic_templates_test()
 {
     cout << "variadic_templates_test()" << endl;
-    print(4,"cpp", 1.2);
+    print(4, "cpp", 1.2);
 }
 } // namespace test04
 
@@ -156,48 +156,105 @@ namespace test05
 {
 class Base1
 {
-    
 };
 
 class Base2
 {
-    
 };
 
-class Derived1: public Base1
+class Derived1 : public Base1
 {
-
 };
 
-class Derived2: public Base2
+class Derived2 : public Base2
 {
-
 };
 
-template<typename T1, typename T2>
+template <typename T1, typename T2>
 struct pair
 {
     T1 first;
     T2 second;
 
-    pair( ):first(T1()), second(T2()){}
-    pair(const T1& a, const T2& b):first(a), second(b){}
-    
-};
+    pair() : first(T1()), second(T2()) {}
+    pair(const T1 &a, const T2 &b) : first(a), second(b) {}
 
+    //这个拷贝构造函数是一个模板函数，但它的类别由另外的typename决定，而不是决定这个模板类的typename决定
+    template <typename U1, typename U2>
+    pair(const pair<U1, U2> &p) : first(p.first), second(p.second) {}
+};
 
 void member_template_test()
 {
+    cout << "member_template_test()" << endl;
     Base1 a;
     Base2 b;
     Derived1 c;
     Derived1 d;
 
-    pair<Base1, Base2>  p = 
+    pair<Derived1, Derived2> p1;
+
+    //使用子类的pair来构造父类的pair
+    pair<Base1, Base2> p2(p1); //Derived1 will be assigned to Base1; Derived2 will be assigned to Base2.
 }
 
 } // namespace test05
 
+#include <iostream>
+using namespace std;
+#include <list>
+#include <string>
+
+namespace test06
+{
+template <typename T, template <typename T>
+                      class Container>
+class XCLs
+{
+private:
+    Container<T> c; //这个模板类的具体类型是由前一个typename T决定的
+
+public:
+    XCLs()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            c.insert(c.end(), T(i));
+        }
+    }
+};
+
+// template<typename T>
+// using Lst = list<T, allocator<T>>;
+ void test_template_template_parameter_1()
+{
+    cout << "test_template_template_parameter_1()" << endl;
+    XCLs<string, list> xcls();
+}
+} // namespace test06
+
+#include <iostream>
+#include <memory> //smart pointers
+
+namespace test07
+{
+template <typename T, template <typename T>
+                      class SmartPtr>
+class XCLs
+{
+private:
+    SmartPtr<T> sp;
+
+public:
+    XCLs() : sp(new T) {}
+};
+
+void test_template_template_parameter_2()
+{
+    cout << "test_template_template_parameter_2()" << endl;
+    XCLs<string, shared_ptr> p1;
+}
+} // namespace test07
 
 //
 int main(int argc, char **argv)
@@ -209,4 +266,7 @@ int main(int argc, char **argv)
     //test02::conversion_function_test();
     //test03::reference_test();
     test04::variadic_templates_test();
+    test05::member_template_test();
+    //test06::test_template_template_parameter_1();
+    //test07::test_template_template_parameter_2();
 }
