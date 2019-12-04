@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-12-03 17:51:07
  * @LastEditors: Cement
- * @LastEditTime: 2019-12-04 15:45:28
+ * @LastEditTime: 2019-12-04 21:16:06
  * @Description: 
  */
 using namespace std;
@@ -82,6 +82,7 @@ enum imageType
 class Image
 {
 private:
+    //静态成员变量一定是在类内声明，类外进行初始化
     static Image *prototypes[10];
     static int _nextSlot;
 
@@ -106,6 +107,7 @@ public:
         }
     }
 };
+//类外初始化，可不加static
 Image* Image::prototypes[];
 int Image::_nextSlot;
 
@@ -116,11 +118,15 @@ private:
     static int count;
     static LandSatImage lsi;
 
+    //这个构造函数是编一阶段时静态成员变量lsi在初始化时使用的
+    //并把自己添加到原型数组中
     LandSatImage()
     {
         addPrototype(this);
     }
 
+    //这个构造函数是是在使用原型进行copy时调用的构造函数
+    //使用占位参数来和上一个进行区分
     LandSatImage(int dummy)
     {
         this->id = count++;
