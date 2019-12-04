@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-12-03 17:51:07
  * @LastEditors: Cement
- * @LastEditTime: 2019-12-04 13:41:00
+ * @LastEditTime: 2019-12-04 15:45:28
  * @Description: 
  */
 using namespace std;
@@ -21,7 +21,7 @@ private:
 
 public:
     Component(int v) : value(v) {}
-    virtual void add() {}
+    virtual void add(Component *c) {}
     int getValue() const
     {
         return this->value;
@@ -67,7 +67,145 @@ void test_composite()
 
 } // namespace test01
 
+//prototype模式
+#include <iostream>
+#include <vector>
+
+namespace test02
+{
+
+enum imageType
+{
+    LandSat,
+    Spot
+};
+class Image
+{
+private:
+    static Image *prototypes[10];
+    static int _nextSlot;
+
+protected:
+    static void addPrototype(Image *image)
+    {
+        prototypes[_nextSlot++] = image;
+    }
+
+public:
+    virtual Image *clone() = 0;
+    virtual void draw() = 0;
+    virtual imageType returnType() const = 0;
+    static Image *findAndClone(imageType type)
+    {
+        for (int i = 0; i < _nextSlot; i++)
+        {
+            if (prototypes[i]->returnType() == type)
+            {
+                return prototypes[i]->clone();
+            }
+        }
+    }
+};
+Image* Image::prototypes[];
+int Image::_nextSlot;
+
+class LandSatImage : public Image
+{
+private:
+    int id;
+    static int count;
+    static LandSatImage lsi;
+
+    LandSatImage()
+    {
+        addPrototype(this);
+    }
+
+    LandSatImage(int dummy)
+    {
+        this->id = count++;
+    }
+
+public:
+    Image *clone()
+    {
+        return new LandSatImage(1);
+    }
+
+    void draw()
+    {
+        cout << "LandSatImage::" << this->id << endl;
+    }
+
+    imageType returnType() const
+    {
+        return LandSat;
+    }
+};
+LandSatImage LandSatImage:: lsi;
+int LandSatImage::count;
+
+class SpotImage : public Image
+{
+private:
+    int id;
+    static int count;
+    static SpotImage si;
+
+    SpotImage()
+    {
+        addPrototype(this);
+    }
+
+    SpotImage(int dummy)
+    {
+        this->id = count++;
+    }
+
+public:
+    Image *clone()
+    {
+        return new SpotImage(1);
+    }
+
+    void draw()
+    {
+        cout << "SpotImage::" << this->id << endl;
+    }
+
+    imageType returnType() const
+    {
+        return Spot;
+    }
+};
+SpotImage SpotImage:: si;
+int SpotImage::count;
+
+const int IMAGE_NUM = 5;
+imageType input[IMAGE_NUM]={LandSat, Spot, LandSat, Spot, LandSat};
+
+void test_prototype()
+{
+    Image* images[IMAGE_NUM];
+    for (int i = 0; i < IMAGE_NUM; i++)
+    {
+        images[i] = Image::findAndClone(input[i]);
+    }
+    for (int i = 0; i < IMAGE_NUM; i++)
+    {
+        images[i]->draw();
+    }
+    //释放内存
+    for (int i = 0; i < IMAGE_NUM; i++)
+    {
+        delete images[i];
+    }
+    
+}
+} // namespace test02
+
 int main()
 {
-    test01::test_composite();
+    //test01::test_composite();
+    test02::test_prototype();
 }
