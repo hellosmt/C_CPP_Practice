@@ -2,7 +2,7 @@
  * @Author: Cement
  * @Date: 2019-11-14 11:19:09
  * @LastEditors: Cement
- * @LastEditTime: 2019-12-10 16:04:11
+ * @LastEditTime: 2019-12-16 10:22:06
  * @Description: 
  */
 
@@ -338,9 +338,288 @@ void test_deque(const long &num_elem)
     timeStart = clock();
     ::sort(c.begin(), c.end());
     cout << "::sort(),milli seconds=" << clock() - timeStart << endl;
+    c.clear();
 }
 } // namespace tt05
 
+#include <iostream>
+#include <cstdlib>
+#include <set>
+#include <string>
+#include <ctime>
+namespace tt06
+{
+void test_multiset(const long &num_elem)
+{
+    cout << "============test_multiset============" << endl;
+
+    multiset<string> c;
+    char buf[10];
+    clock_t timeStart = clock();
+
+    for (long i = 0; i < num_elem; i++)
+    {
+        snprintf(buf, 10, "%d", rand());
+        c.insert(string(buf));
+    }
+
+    cout << "milli-seconds:" << clock() - timeStart << endl;
+    cout << "multiset.size()=" << c.size() << endl;
+    cout << "multiset.max_size()=" << c.max_size() << endl;
+    string target = get_target_string();
+    timeStart = clock();
+    auto pItem = ::find(c.begin(), c.end(), target);
+    cout << "::find() milli-seconds=" << clock() - timeStart << endl;
+    if (pItem != c.end())
+    {
+        cout << "found:" << *pItem << endl;
+    }
+    else
+    {
+        cout << "not found" << endl;
+    }
+    timeStart = clock();
+    pItem = c.find(target);
+    cout << "multiset.find() milli-seconds=" << clock() - timeStart << endl;
+    if (pItem != c.end())
+    {
+        cout << "found:" << *pItem << endl;
+    }
+    else
+    {
+        cout << "not found" << endl;
+    }
+    c.clear();
+}
+} // namespace tt06
+
+#include <iostream>
+#include <map>
+#include <string>
+#include <cstdlib>
+
+namespace tt07
+{
+void test_multimap(const long &num_elem)
+{
+    cout << "============test_multimap============" << endl;
+
+    multimap<long, string> c;
+    char buf[10];
+    clock_t timeStart = clock();
+    for (long i = 0; i < num_elem; i++)
+    {
+        snprintf(buf, 10, "%d", rand());
+        //不能使用[]来插入
+        c.insert(pair<long, string>(i, (buf)));
+    }
+    cout << "milli-second:" << clock() - timeStart << endl;
+    cout << "multimap.size()=" << c.size() << endl;
+    cout << "multimap.max_size()=" << c.max_size() << endl;
+
+    long target = get_target_long();
+    // timeStart = clock();
+    // auto pItem = ::find(c.begin(), c.end(), target);
+    // cout<<"::find() milli-seconds="<<clock()-timeStart<<endl;
+    // if (pItem != c.end())
+    // {
+    //     cout << "found:" << (*pItem).second << endl;
+    // }
+    // else
+    // {
+    //     cout << "not found" << endl;
+    // }
+    timeStart = clock();
+    auto pItem = c.find(target);
+    cout << "multimap.find() milli-seconds=" << clock() - timeStart << endl;
+    if (pItem != c.end())
+    {
+        cout << "found:" << (*pItem).second << endl;
+    }
+    else
+    {
+        cout << "not found" << endl;
+    }
+    c.clear();
+}
+} // namespace tt07
+
+#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+namespace tt08
+{
+void test_unordered_map(const long &num_elem)
+{
+    cout << "============test_unordered_map============" << endl;
+
+    unordered_map<long, string> c;
+    for (long i = 0; i < num_elem; i++)
+    {
+        /* code */
+    }
+    char buf[10];
+    clock_t timeStart = clock();
+    for (long i = 0; i < num_elem; i++)
+    {
+        snprintf(buf, 10, "%d", rand());
+        //不能使用[]来插入
+        c.insert(pair<long, string>(i, (buf)));
+    }
+    cout << "milli-second:" << clock() - timeStart << endl;
+    cout << "unordered_map.size()=" << c.size() << endl;
+    cout << "unordered_map.max_size()=" << c.max_size() << endl;
+    cout << "unordered_map.bucket_count()=" << c.bucket_count() << endl;
+    cout << "unordered_map.max_bucket_count()=" << c.max_bucket_count() << endl;
+    cout << "unordered_map.load_factor()=" << c.load_factor() << endl;
+    cout << "unordered_map.max_load_factor()=" << c.max_load_factor() << endl;
+
+    for (int j = 0; j < 20; j++)
+    {
+        cout << "bucket j has " << c.bucket_size(j) << " elements" << endl;
+    }
+
+    long target = get_target_long();
+    timeStart = clock();
+    auto pItem = c.find(target);
+
+    cout << "unordered_map.find() milli-seconds=" << clock() - timeStart << endl;
+    if (pItem != c.end())
+    {
+        cout << "found:" << (*pItem).second << endl;
+    }
+    else
+    {
+        cout << "not found" << endl;
+    }
+    c.clear();
+}
+} // namespace tt08
+
+#include <iostream>
+#include <unordered_set>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+namespace tt09
+{
+void test_unordered_set(const long &num_elem)
+{
+    cout << "============test_unordered_set============" << endl;
+
+    unordered_set<string> c;
+    for (long i = 0; i < num_elem; i++)
+    {
+        /* code */
+    }
+    char buf[10];
+    clock_t timeStart = clock();
+    for (long i = 0; i < num_elem; i++)
+    {
+        snprintf(buf, 10, "%d", rand());
+        //不能使用[]来插入
+        c.insert(string(buf));
+    }
+    cout << "milli-second:" << clock() - timeStart << endl;
+    cout << "unordered_set.size()=" << c.size() << endl;
+    cout << "unordered_set.max_size()=" << c.max_size() << endl;
+    cout << "unordered_set.bucket_count()=" << c.bucket_count() << endl;
+    cout << "unordered_set.max_bucket_count()=" << c.max_bucket_count() << endl;
+    cout << "unordered_set.load_factor()=" << c.load_factor() << endl;
+    cout << "unordered_set.max_load_factor()=" << c.max_load_factor() << endl;
+
+    for (int j = 0; j < 20; j++)
+    {
+        cout << "bucket j has " << c.bucket_size(j) << " elements" << endl;
+    }
+
+    string target = get_target_string();
+    timeStart = clock();
+    auto pItem = c.find(target);
+
+    cout << "unordered_set.find() milli-seconds=" << clock() - timeStart << endl;
+    if (pItem != c.end())
+    {
+        cout << "found:" << (*pItem) << endl;
+    }
+    else
+    {
+        cout << "not found" << endl;
+    }
+    c.clear();
+}
+} // namespace tt09
+
+#include <iostream>
+#include <list>
+#include <string>
+#include <vector>
+namespace tt10
+{
+void test_iterator_traits()
+{
+    list<string> c;
+    cout << typeid(list<string>::iterator::value_type).name() << endl; //NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+
+    vector<int> v;
+    for (int i = 0; i < 30; i++)
+    {
+        v.push_back(i);
+        cout << v.size() << endl;
+        cout << v.capacity() << endl
+             << endl;
+    }
+
+    cout << sizeof(v) << endl;     //24 三个指针大小 start finish end_of_storage
+    cout << sizeof(int *) << endl; //8
+    v.clear();
+}
+} // namespace tt10
+
+#include <iostream>
+#include <set>
+#include <functional> //_Identity less
+namespace tt11
+{
+void test_RB_tree()
+{
+    //G2.9 vs. G4.9 :
+    //rb_tree => _Rb_tree,
+    //identity<> => _Identity<>
+    //insert_unique() => _M_insert_unique()
+    //insert_equal() => _M_insert_equal()
+
+    cout << "\ntest_Rb_tree().......... \n";
+
+    _Rb_tree<int, int, _Identity<int>, less<int>> my_tree;
+    cout << my_tree.empty() << endl; //1
+    cout << my_tree.size() << endl;  //0
+
+    my_tree._M_insert_unique(1);
+    my_tree._M_insert_unique(5);
+    my_tree._M_insert_unique(3);
+    my_tree._M_insert_unique(8);
+    my_tree._M_insert_unique(5);
+    my_tree._M_insert_unique(1);
+
+    cout << my_tree.empty() << endl;  //0
+    cout << my_tree.size() << endl;   //4
+    cout << my_tree.count(1) << endl; //1
+
+    my_tree._M_insert_equal(1);
+    my_tree._M_insert_equal(1);
+    cout << my_tree.empty() << endl;  //0
+    cout << my_tree.size() << endl;   //6
+    cout << my_tree.count(1) << endl; //3
+
+    my_tree.clear();
+}
+
+} // namespace tt11
+
+#include <ext/pool_allocator.h>
 int main()
 {
     //设置随机数种子
@@ -352,5 +631,11 @@ int main()
     //tt02::test_vector(a);
     //tt03::test_list(a);
     //tt04::test_slist(a);
-    tt05::test_deque(a);
+    // tt05::test_deque(a);
+    // tt06::test_multiset(a);
+    // tt07::test_multimap(a);
+    // tt08::test_unordered_map(a);
+    // tt09::test_unordered_set(a);
+    // tt10::test_iterator_traits();
+    tt11::test_RB_tree();
 }
