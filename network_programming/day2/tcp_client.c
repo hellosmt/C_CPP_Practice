@@ -1,3 +1,10 @@
+/*
+ * @Author       : Cement
+ * @Date         : 2020-03-26 00:03:14
+ * @LastEditors  : Cement
+ * @LastEditTime : 2020-03-26 00:03:15
+ * @Description  : 
+ */
 #include <stdio.h>
 #include<arpa/inet.h>
 #include<sys/socket.h>
@@ -29,7 +36,7 @@ int main(int arg, char *argv[])
     addr_serv.sin_family = AF_INET;
     addr_serv.sin_port = htons(SERV_PORT);//要传进网络中，所以要转换
     void* server_ip;
-    inet_pton(AF_INET, SERV_IP, &addr_serv.sin_addr.s_addr);
+    inet_pton(AF_INET, SERV_IP, &addr_serv.sin_addr.s_addr); // 已经 转成了网络字节序
     int ret = connect(cfd, (struct sockaddr*)&addr_serv, sizeof(addr_serv));
     if(ret != 0)
     {
